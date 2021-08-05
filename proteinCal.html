@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ToDoList</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <h1>Protein Calculator</h1>
+    <canvas id="canvas" width="300px" height="100px"></canvas>
+
+    <h4>체중</h4>
+    <input type="text" id="weight"><span>kg</span>
+
+    <h4>목적</h4>
+    <select id="purpose">
+        <option value="">목적선택</option>
+        <option value="벌크업">벌크업</option>
+        <option value="린매스업">린매스업</option>
+        <option value="다이어트">다이어트</option>
+    </select>
+    <button style="display: block" id="proteinCalBtt">제출</button>
+    <button id="clearBtt">초기화</button>
+
+    <button id="drop_btt">음식 종류</button>
+    <div class="drop_choice">
+        <span>
+            <button class="plus" id="30">+</button>
+            <button class="minus" id="30">-</button>
+            고단백짬 - 30g
+        </span>
+        <br>
+        <span>
+            <button class="plus" id="15">+</button>
+            <button class="minus" id="15">-</button>
+            평범짬 - 15g
+        </span>
+        <br>
+        <span>
+            <button class="plus" id="10">+</button>
+            <button class="minus" id="10">-</button>
+            풀때기짬 - 10g
+        </span>
+        <br>
+        <span>
+            <button class="plus" id="20">+</button>
+            <button class="minus" id="20">-</button>
+            마프 1스쿱 - 20g
+        </span>
+        <br>
+        <span>
+            <button class="plus" id="7">+</button>
+            <button class="minus" id="7">-</button>
+            계란 1개 - 7g
+        </span>
+        <br>
+    </div>
+
+        
+
+    <canvas id="canvas2" width="375px" height="100px"></canvas>
+    <script src="script2.js"></script>
+</body>
+</html>

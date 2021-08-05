@@ -1,0 +1,42 @@
+ .checked{
+    text-decoration: line-through;
+}
+body{
+    margin: 0;
+}
+h1{
+    margin-top: 20px;
+    margin-bottom: 0;
+    text-align: center;
+    background-color: #fffab6;
+}
+#canvas{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#input{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border: solid 1px;
+    width: 250px;
+    margin-bottom: 10px;
+}
+#list{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    list-style: none;
+    width: 330px;
+    padding: 0;
+
+}
+button{
+    width: 24px;
+    height: 17px;
+}
+span{
+    padding-left: 10px;
+    font-family: serif;
+}

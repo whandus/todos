@@ -1,0 +1,58 @@
+#purpose{
+    padding: 1px;
+    min-height: 22px;
+}
+body{
+    margin: 0;
+    font-family: serif;
+}
+h1{
+    margin-top: 20px;
+    margin-bottom: 0;
+    text-align: center;
+    background-color: #fffab6;
+}
+#canvas{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.drop_choice{
+    display: none;
+    position: absolute;
+    overflow: auto;
+    font-size: 12px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.show{
+    display: block;
+}
+#drop_btt{
+    display: block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 6px;
+    height: 30px;
+    border: 1px;
+    cursor: pointer;
+}
+input{
+    width: 30px;
+}
+h4{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+#result{
+    max-width: 80px;
+    min-height: 22px;
+    border: solid gray 1px;
+}
+#proteinCalBtt{
+    margin-top: 15px;
+}
+#canvas2{
+    margin-top: 150px;
+}
