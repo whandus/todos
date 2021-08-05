@@ -57,7 +57,7 @@ function proteinCal(){
     const p2 = "린매스업";
     const p3 = "다이어트";
     let X = weightV;
-    let t = 1;
+    let sum = 0;
 
     if(purposeV == p1){
         X = X*2;
@@ -80,14 +80,14 @@ function proteinCal(){
     function drawBottle(event){
         const food = event.target;
         const foodId = food.id;
-        const n = foodId / X
-        let per = 325*n;
+        const goukei = foodId + sum;
+        const n = goukei / X;
+        const per = 325*n;
         
-        if(per*t <= 325){
         ctx2.fillStyle = "#fffab6";
-        ctx2.fillRect(25, 25, per*t, 50);
-        t = t + 1;
-        }
+        ctx2.fillRect(25, 25, per, 50);
+        sum = sum + goukei;
+        
     }
 }
 
