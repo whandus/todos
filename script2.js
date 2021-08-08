@@ -47,15 +47,15 @@ dropBtt.addEventListener('click', dropdown);
 //drawBar start------------------------------------------------
 const plusS = document.querySelectorAll(".plus");
 const minus = document.querySelectorAll(".minus");
+const weight = document.getElementById("weight");
+const purpose = document.getElementById("purpose");
+const p1 = "벌크업";
+const p2 = "린매스업";
+const p3 = "다이어트";
 
 function proteinCal(){
-    const weight = document.getElementById("weight");
-    const purpose = document.getElementById("purpose");
     const weightV = weight.value;
     const purposeV = purpose.value;
-    const p1 = "벌크업";
-    const p2 = "린매스업";
-    const p3 = "다이어트";
     let X = weightV;
     let sum = 0;
 
@@ -79,15 +79,18 @@ function proteinCal(){
 
     function drawBottle(event){
         const food = event.target;
-        const foodId = food.id;
-        const goukei = foodId + sum;
-        const n = goukei / X;
-        const per = 325*n;
+        const foodId = parseInt(food.id);
+        const n = (foodId+sum) / X;
+        let per = 325*n;
         
+        if(per > 325){
+            per = 325;
+        };
+
         ctx2.fillStyle = "#fffab6";
         ctx2.fillRect(25, 25, per, 50);
-        sum = sum + goukei;
-        
+        sum += foodId;
+        //console.log(foodId); 새로 bar를 만들 때마다 drawBottle의 실행횟수가 1씩 늘어남 왜지?
     }
 }
 
@@ -119,9 +122,15 @@ function drawPercent(){
 function clearBottle(){
     ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
 }
+
+function reload(){
+    location.reload();
+}
+
+
 const proteinCalBtt = document.getElementById("proteinCalBtt");
 const clearBtt = document.getElementById("clearBtt");
 
 proteinCalBtt.addEventListener('click', proteinCal);
-clearBtt.addEventListener('click', clearBottle);
+clearBtt.addEventListener('click', reload);
 
