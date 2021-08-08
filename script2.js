@@ -91,6 +91,8 @@ function proteinCal(){
         ctx2.fillRect(25, 25, per, 50);
         sum += foodId;
         //console.log(foodId); 새로 bar를 만들 때마다 drawBottle의 실행횟수가 1씩 늘어남 왜지?
+        //추가하는 항목마다 이름과 색깔 구분 넣어주기
+        //minus버튼 활성화
     }
 }
 
