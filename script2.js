@@ -1,14 +1,11 @@
-const canvas = document.getElementById('canvas'); //
-const canvas2 = document.getElementById('canvas2');
+//drawTime start----------------------------------------------
+const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext("2d");
-const ctx2 = canvas2.getContext("2d");
 let x = canvas.width/2;
 let y = canvas.height/2;
-//drawTime start----------------------------------------------
 function drawTime(){
     let time = new Date();
     let today = time.toLocaleString();
-    
     let todayArray = today.split('.');
     let startDay = new Date(todayArray[0], todayArray[1], todayArray[2]);
     let endDay = new Date("2021", "12", "14");
@@ -33,7 +30,6 @@ function drawTime(){
     }
 setInterval(drawTime, 100);
 //dropdown start----------------------------------------------
-
 const dropBtt = document.getElementById('drop_btt');
 
 function dropdown(){
@@ -43,66 +39,49 @@ function dropdown(){
         dropChoice.item(i).classList.toggle("show");
     }
 }
+
 dropBtt.addEventListener('click', dropdown);
 //drawBar start------------------------------------------------
+const canvas2 = document.getElementById('canvas2');
+const ctx2 = canvas2.getContext("2d");
+
 const plusS = document.querySelectorAll(".plus");
-const minus = document.querySelectorAll(".minus");
+const minusS = document.querySelectorAll(".minus");
 const weight = document.getElementById("weight");
 const purpose = document.getElementById("purpose");
 const p1 = "벌크업";
 const p2 = "린매스업";
 const p3 = "다이어트";
+let sum = 0;
+let countNum = 0;
 
 function proteinCal(){
     const weightV = weight.value;
     const purposeV = purpose.value;
     let X = weightV;
-    let sum = 0;
 
     if(purposeV == p1){
         X = X*2;
+        clearBottle();
         drawAll(X);
     }
     if(purposeV == p2){
         X = X*1.5;
+        clearBottle();
         drawAll(X);
     }
     if(purposeV == p3){
         X = X*1;
+        clearBottle();
         drawAll(X);
-    }
-
-    for(let i = 0; i < plusS.length; i++){
-        let plus = plusS.item(i);
-        plus.addEventListener('click', drawBottle);
-    };
-
-    function drawBottle(event){
-        const food = event.target;
-        const foodId = parseInt(food.id);
-        const n = (foodId+sum) / X;
-        let per = 325*n;
-        
-        if(per > 325){
-            per = 325;
-        };
-
-        ctx2.fillStyle = "#fffab6";
-        ctx2.fillRect(25, 25, per, 50);
-        sum += foodId;
-        //console.log(foodId); 새로 bar를 만들 때마다 drawBottle의 실행횟수가 1씩 늘어남 왜지?
-        //추가하는 항목마다 이름과 색깔 구분 넣어주기
-        //minus버튼 활성화
     }
 }
 
 function drawAll(Xn){
-    clearBottle();
     drawBar();
     drawGram(Xn);
     drawPercent();
 }
-
 
 function drawBar(){
     ctx2.fillStyle = "gray";
@@ -111,7 +90,8 @@ function drawBar(){
 function drawGram(Xn){
     ctx2.fillStyle = "black";
     ctx2.font = "14px serif";
-    ctx2.fillText(Xn+"g", 320, 15);
+    ctx2.textAlign = "right";
+    ctx2.fillText(sum+"g  /  "+Xn+"g", 340, 15);
 }
 function drawPercent(){
     for(let i = 10, t = 0; i <= 80, t <= 260; i = i + 10, t = t + 32.5){
@@ -120,9 +100,100 @@ function drawPercent(){
         ctx2.fillText(i, 50+t, 90);
     }
 }
-
 function clearBottle(){
     ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    sum = 0;
+}
+//프로틴 퍼센트 채우기---------------------------------------------------------------------
+for(let i = 0; i < plusS.length; i++){
+    let plus = plusS.item(i);
+    plus.addEventListener('click', drawBottle);
+};
+
+function drawBottle(event){
+    const weightV = weight.value;
+    const purposeV = purpose.value;
+    let X = weightV;
+
+    if(purposeV == p1){
+        X = X*2;
+    }
+    if(purposeV == p2){
+        X = X*1.5;
+    }
+    if(purposeV == p3){
+        X = X*1;
+    }
+
+    const food = event.target;
+    const count = event.target.nextsibling;
+    const foodId = parseInt(food.id);
+    const n = (foodId+sum) / X;
+    let per = 325*n;
+    
+    if(per > 325){
+        per = 325;
+    };
+
+    sum += foodId;
+
+    if(sum > X){
+        sum = X;
+    };
+
+    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    drawAll(X);
+    ctx2.fillStyle = "#fffab6";
+    ctx2.fillRect(25, 25, per, 50);
+
+    countNum++;
+    count.innerText = countNum;
+    //추가하는 항목마다 이름과 색깔 구분 넣어주기
+}
+
+for(let i = 0; i < minusS.length; i++){
+    let minus = minusS.item(i);
+    minus.addEventListener('click', deleteBottle);
+};
+function deleteBottle(event){
+    const weightV = weight.value;
+    const purposeV = purpose.value;
+    let X = weightV;
+
+    if(purposeV == p1){
+        X = X*2;
+    }
+    if(purposeV == p2){
+        X = X*1.5;
+    }
+    if(purposeV == p3){
+        X = X*1;
+    }
+
+    const food = event.target;
+    const foodId = parseInt(food.id);
+    const n = (sum-foodId) / X;
+    let per = 325*n;
+
+    if(per < 0){
+        per = 0;
+    };
+
+    sum -= foodId;
+
+    if(sum < 0){
+        sum = 0;
+    };
+
+    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    drawAll(X);
+
+    ctx2.fillStyle = "#fffab6";
+    ctx2.fillRect(25, 25, per, 50);
+    
+    countNum--;
+    count.innerText = countNum;
+    //추가하는 항목마다 이름과 색깔 구분 넣어주기
 }
 
 function reload(){
