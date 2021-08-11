@@ -118,7 +118,7 @@ function clearBottle(){
 //프로틴 퍼센트 채우기---------------------------------------------------------------------
 for(let i = 0; i < plusS.length; i++){
     let plus = plusS.item(i);
-    plus.addEventListener('click', drawBottle);
+    plus.addEventListener('click', drawPlus);
 };
 
 function drawBottle(event){
@@ -225,3 +225,52 @@ const clearBtt = document.getElementById("clearBtt");
 proteinCalBtt.addEventListener('click', proteinCal);
 clearBtt.addEventListener('click', reload);
 
+let colorCode = [];
+
+function drawPlus(){
+    const count = event.target.nextElementSibling;
+    let gram = 0;
+    //X값 측정
+    const weightV = weight.value;
+    const purposeV = purpose.value;
+    let X = weightV;
+    if(purposeV == p1){
+        X = X*2;
+    }
+    if(purposeV == p2){
+        X = X*1.5;
+    }
+    if(purposeV == p3){
+        X = X*1;
+    }
+    //X값 측정 끝
+    //count.id의 상한선을 drawPlus의 외부변수로 정하기.
+    count.id++;
+    count.innerHTML = count.id;
+
+    ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+    drawAll(X);
+
+    for(let i = 0; i < countS.length; i++){
+        let randomColor = "#"+Math.round(Math.random()*0xffffff).toString(16);
+        colorCode.push(randomColor);
+    };
+
+    for(let i = 0; i < countS.length; i++){
+        let count = countS.item(i);
+        let countSum = count.previousElementSibling.id * count.id;
+        const n = countSum / X;
+        let per = 325*n;
+
+        if(per > 325){
+            per = 325;
+        };
+        if(gram > 325){
+            gram = 325;
+        }else{
+        ctx2.fillStyle = colorCode[i];
+        ctx2.fillRect(25 + gram, 25, per, 50);
+        gram += per;
+        };
+    };
+};
