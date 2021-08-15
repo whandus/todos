@@ -228,6 +228,7 @@ clearBtt.addEventListener('click', reload);
 
 let colorCode = [];
 let sum2 = 0;
+const perColor = document.querySelectorAll(".color");
 
 function drawPlus(event){
     const count = event.target.nextElementSibling;
@@ -262,10 +263,11 @@ function drawPlus(event){
 
     for(let i = 0; i < countS.length; i++){
         let count = countS.item(i);
+        let color = perColor.item(i);
         let countSum = count.previousElementSibling.id * count.id;
         const n = countSum / X;
         let per = 325*n;
-        let showGram = gram / 325 * X;
+        
 
         if(per > 325){
             per = 325;
@@ -273,16 +275,17 @@ function drawPlus(event){
         /*if(gram > 325){
             gram = 325;
         }else{*/
-
-            ctx2.fillStyle = colorCode[i];
-            if(gram + per > 325){
-                per = 325 - gram;
-            };
-            ctx2.fillRect(25 + gram, 25, per, 50);
-            gram += per;
-            drawGram2(showGram, X);
-            sum2 = gram + per;
-            //마지막에 30g을 추가하면 30g이 full로 채워지는 것 고치기
+        color.style.backgroundColor = colorCode[i];
+        ctx2.fillStyle = colorCode[i];
+        if(gram + per > 325){
+            per = 325 - gram;
+        };
+        ctx2.fillRect(25 + gram, 25, per, 50);
+        gram += per;
+        let showGram = gram / 325 * X;
+        drawGram2(showGram, X);
+        sum2 = gram + per;
+        //마지막에 30g을 추가하면 30g이 full로 채워지는 것 고치기
     };
 };
 
@@ -293,3 +296,4 @@ function drawGram2(showGram, Xn){
     ctx2.textAlign = "right";
     ctx2.fillText(showGram+"g  /  "+Xn+"g", 340, 15);
 };
+
